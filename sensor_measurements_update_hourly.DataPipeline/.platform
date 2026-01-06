@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "sensor_measurements_update_hourly"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "049ee8ba-4491-8aff-499a-26bac1e1f115"
+  }
+}

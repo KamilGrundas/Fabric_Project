@@ -1,0 +1,305 @@
+table FactTaxiHourly
+	lineageTag: 198533f6-0081-4f36-bf9d-be2e9a44ac32
+	sourceLineageTag: [dbo].[FactTaxiHourly]
+
+	measure 'Total Revenue' =
+			
+			SUM ( FactTaxiHourly[total_amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 2b5ad1d1-445a-47ec-9986-bfd5b18fca2d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Daily Revenue' =
+			
+			AVERAGEX (
+			    FILTER (
+			        VALUES ( DimDate[DateValue] ),
+			        NOT ISBLANK ( [Total Revenue] )
+			    ),
+			    [Total Revenue]
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: b4c537f1-5578-4a70-b2bf-f4cc9e7a0f3e
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Monthly Revenue' = ```
+			
+			AVERAGEX (
+			    FILTER (
+			        VALUES ( DimDate[MonthNumber] ),
+			        NOT ISBLANK ( [Total Revenue] )
+			    ),
+			    [Total Revenue]
+			)
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: b80ae815-3598-4161-a598-5c1a401acf97
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Metric Value' = ```
+			
+			SWITCH (
+			    SELECTEDVALUE ( Metrics[Metric] ),
+			    "Average Daily Revenue", [Average Daily Revenue],
+			    "Average Monthly Revenue", [Average Monthly Revenue],
+			    "Total Revenue", [Total Revenue]
+			)
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: c7a4587b-7544-41a6-bdb9-9684d122eae4
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Financial Title' =
+			
+			"Financial Data – Year " & SELECTEDVALUE ( DimDate[Year] )
+		lineageTag: ba07e4fe-9af3-48ef-b4a9-7a436e32ae1a
+
+		changedProperty = Name
+
+	measure 'Average Trip Distance' = ```
+			
+			AVERAGE ( FactTaxiHourly[trip_distance] )
+			
+			```
+		lineageTag: 64a262ba-1f5b-4bed-85b2-c05655115a19
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Total Amount' = ```
+			
+			AVERAGE ( FactTaxiHourly[total_amount] )
+			
+			```
+		formatString: #,0.###############\ "zł";-#,0.###############\ "zł";#,0.###############\ "zł"
+		lineageTag: 9ec8077c-c053-45ce-8b49-08318cc0070a
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"pl"}
+
+	measure 'Average Tip Amount' = ```
+			
+			AVERAGE ( FactTaxiHourly[tip_amount] )
+			
+			```
+		formatString: #,0.###############\ "zł";-#,0.###############\ "zł";#,0.###############\ "zł"
+		lineageTag: 420107c3-7d4e-4e93-aac9-95e2e46ed11a
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"pl"}
+
+	measure 'Average Trip Duration (Minutes)' = ```
+			
+			AVERAGE ( FactTaxiHourly[trip_duration_minutes] )
+			
+			```
+		formatString: #,0.###############\ "zł";-#,0.###############\ "zł";#,0.###############\ "zł"
+		lineageTag: a93e8a4a-4c92-4e98-a387-ec25625e1696
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"pl"}
+
+	measure 'Trip Title' = ```
+			
+			"Trip Data – Year " & SELECTEDVALUE ( DimDate[Year] )
+			
+			```
+		lineageTag: 218fbe80-475d-4e34-be3b-98471a305e07
+
+		changedProperty = Name
+
+	measure 'Metric Value 2' = ```
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Metrics 2'[Metric] ),
+			    "Average Trip Distance", [Average Trip Distance],
+			    "Average Total Amount", [Average Total Amount],
+			    "Average Tip Amount", [Average Tip Amount],
+			    "Average Trip Duration (Minutes)", [Average Trip Duration (Minutes)]
+			)
+			
+			```
+		lineageTag: 1d350ea9-d3eb-4685-b0dd-05c6851d4761
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column pickup_datetime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 495a2ac7-2dde-4990-a71e-1df94ba339bf
+		sourceLineageTag: pickup_datetime
+		summarizeBy: none
+		sourceColumn: pickup_datetime
+
+		annotation SummarizationSetBy = Automatic
+
+	column dropoff_datetime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 992235cd-7dc5-48ca-9d5a-6b503a483df3
+		sourceLineageTag: dropoff_datetime
+		summarizeBy: none
+		sourceColumn: dropoff_datetime
+
+		annotation SummarizationSetBy = Automatic
+
+	column pickup_hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a6a6508c-b1e9-4323-85ef-5d1996f5a8a8
+		sourceLineageTag: pickup_hour
+		summarizeBy: sum
+		sourceColumn: pickup_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_duration_minutes
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 4)
+		lineageTag: 35212329-3244-4596-949c-a5ce0a5436d6
+		sourceLineageTag: trip_duration_minutes
+		summarizeBy: sum
+		sourceColumn: trip_duration_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column PUBoroughID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 92c26261-e697-43a2-98ea-6b449082f8ed
+		sourceLineageTag: PUBoroughID
+		summarizeBy: none
+		sourceColumn: PUBoroughID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DOBoroughID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 25226f35-ed01-49ec-8d61-640d6f149fc3
+		sourceLineageTag: DOBoroughID
+		summarizeBy: count
+		sourceColumn: DOBoroughID
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_distance
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 765b4264-d6d9-4150-8c29-4ca8670388c6
+		sourceLineageTag: trip_distance
+		summarizeBy: sum
+		sourceColumn: trip_distance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fare_amount
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 07e55848-68c8-4c83-b93c-de329292a5e4
+		sourceLineageTag: fare_amount
+		summarizeBy: sum
+		sourceColumn: fare_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column tip_amount
+		dataType: decimal
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 81e05ea7-e25d-407a-8a5d-93ca6b67395d
+		sourceLineageTag: tip_amount
+		summarizeBy: sum
+		sourceColumn: tip_amount
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column total_amount
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 2)
+		lineageTag: a99841c2-4948-4296-8839-9608daf6b827
+		sourceLineageTag: total_amount
+		summarizeBy: sum
+		sourceColumn: total_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column PickupDateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9e16ed5a-8510-49b8-8cb0-f9351de7e8a8
+		sourceLineageTag: PickupDateKey
+		summarizeBy: none
+		sourceColumn: PickupDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DropoffDateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 07c0b08f-a2d4-41db-89ca-a95788bf4a63
+		sourceLineageTag: DropoffDateKey
+		summarizeBy: count
+		sourceColumn: DropoffDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactTaxiHourly = entity
+		mode: directLake
+		source
+			entityName: FactTaxiHourly
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

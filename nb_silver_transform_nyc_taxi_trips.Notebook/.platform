@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_silver_transform_nyc_taxi_trips"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4c73a579-3763-b76c-4a33-2a1d0ad1e670"
+  }
+}

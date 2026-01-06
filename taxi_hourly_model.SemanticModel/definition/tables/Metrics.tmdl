@@ -1,0 +1,28 @@
+table Metrics
+	lineageTag: fca788e6-550e-4652-b7aa-870470431ab6
+
+	column Metric
+		lineageTag: 9f1640c3-223f-4b8d-8d85-5760d671578f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Metrics = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "Metric", STRING,
+				    {
+				        { "Average Daily Revenue" },
+				        { "Average Monthly Revenue" },
+				        { "Total Revenue" }
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 36c2564189754c6b9d6af931fe6faaff
+

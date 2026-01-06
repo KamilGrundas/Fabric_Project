@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "df_hourly_silver_to_gold"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0e0986d8-7c60-9e54-4b4a-fe389c095350"
+  }
+}

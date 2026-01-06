@@ -1,0 +1,110 @@
+table DimDate
+	lineageTag: 42769f45-60c4-4a99-ba1f-7d1a194b5529
+	sourceLineageTag: [dbo].[DimDate]
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 25c45d49-e856-4efd-ba69-af2c7b94cc0c
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateValue
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 5a65f269-07cf-40e8-9fe5-7db361a3020e
+		sourceLineageTag: DateValue
+		summarizeBy: none
+		sourceColumn: DateValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d970e195-fb11-44b8-887d-a18780a745ff
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 87bec553-4f5b-4f56-aaf4-a5426a11c3d2
+		sourceLineageTag: MonthNumber
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthShort
+		dataType: string
+		sourceProviderType: char
+		lineageTag: 548bd448-da16-4cf3-83e2-73eed13b2ba4
+		sourceLineageTag: MonthShort
+		summarizeBy: none
+		sourceColumn: MonthShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 86ed990d-ca95-4a29-8e3f-6cb8c1bc9413
+		sourceLineageTag: Day
+		summarizeBy: sum
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 27717068-8ea4-47f8-80d0-4700849120e0
+		sourceLineageTag: DayOfWeek
+		summarizeBy: sum
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeekShort
+		dataType: string
+		sourceProviderType: char
+		lineageTag: b912d681-c873-4cd9-8488-51938edeff2d
+		sourceLineageTag: DayOfWeekShort
+		summarizeBy: none
+		sourceColumn: DayOfWeekShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d4e19fcf-93f2-4ad1-9f9e-8a263e1fa061
+		sourceLineageTag: IsWeekend
+		summarizeBy: sum
+		sourceColumn: IsWeekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = entity
+		mode: directLake
+		source
+			entityName: DimDate
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

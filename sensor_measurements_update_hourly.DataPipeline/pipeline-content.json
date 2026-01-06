@@ -1,0 +1,123 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "ad445124-4ff6-89dd-41c3-796fb7ee7ec1",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Load_latest_data",
+        "dependsOn": []
+      },
+      {
+        "type": "RefreshDataflow",
+        "typeProperties": {
+          "dataflowId": "0e0986d8-7c60-9e54-4b4a-fe389c095350",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Load_latest_data_into_warehouse",
+        "dependsOn": [
+          {
+            "activity": "Load_latest_data",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "PBISemanticModelRefresh",
+        "typeProperties": {
+          "method": "post",
+          "groupId": "9cd4ffe5-68b7-4261-8163-b56bf0bc32ea",
+          "datasetId": "e4523464-431f-407d-809b-ae7699bbba0f",
+          "commitMode": "Transactional",
+          "waitOnCompletion": true,
+          "operationType": "SemanticModelRefresh"
+        },
+        "externalReferences": {
+          "connection": "c77e2cf9-75c2-4ae3-80aa-7ce71ee7cdb6"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Symentic_model_refresh",
+        "dependsOn": [
+          {
+            "activity": "Merge_data",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "MERGE INTO FactAirQuality fa\nUSING (\n    SELECT\n        BoroughID,\n        DateKey,\n        HourKey,\n        parameter,\n        unit,\n        value\n    FROM (\n        SELECT\n            db.BoroughID AS BoroughID,\n            YEAR(sm.datetime_local) * 10000\n              + MONTH(sm.datetime_local) * 100\n              + DAY(sm.datetime_local) AS DateKey,\n            DATEPART(HOUR, sm.datetime_local) AS HourKey,\n            ss.parameter,\n            ss.unit,\n            sm.value,\n            ROW_NUMBER() OVER (\n                PARTITION BY\n                    db.BoroughID,\n                    YEAR(sm.datetime_local) * 10000\n                      + MONTH(sm.datetime_local) * 100\n                      + DAY(sm.datetime_local),\n                    DATEPART(HOUR, sm.datetime_local),\n                    ss.parameter\n                ORDER BY sm.datetime_utc DESC\n            ) AS rn\n        FROM silver_sensor_measurements_hourly sm\n        JOIN silver_sensors ss\n            ON sm.sensor_id = ss.sensor_id\n        JOIN silver_openaq_locations sol\n            ON ss.location_id = sol.location_id\n        JOIN DimBorough db\n            ON sol.suburb = db.BoroughName\n        WHERE sm.datetime_utc >= DATEADD(HOUR, -24, GETUTCDATE())\n    ) t\n    WHERE rn = 1\n) src\nON  fa.BoroughID = src.BoroughID\nAND fa.DateKey   = src.DateKey\nAND fa.HourKey   = src.HourKey\nAND fa.parameter = src.parameter\n\nWHEN NOT MATCHED THEN\nINSERT (BoroughID, DateKey, HourKey, value, parameter, unit)\nVALUES (src.BoroughID, src.DateKey, src.HourKey, src.value, src.parameter, src.unit);",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "nyc_data",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "8e4f068d-5e47-4f26-a593-3ea9f10014ec",
+              "endpoint": "wu7jd6hvkndevpsg7n2pugu3my-4x75jhfxnbqufaldwvv7bpbs5i.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "9cd4ffe5-68b7-4261-8163-b56bf0bc32ea"
+            },
+            "externalReferences": {
+              "connection": "1936b83b-0961-4606-b614-df75815289ef"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Merge_data",
+        "dependsOn": [
+          {
+            "activity": "Load_latest_data_into_warehouse",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

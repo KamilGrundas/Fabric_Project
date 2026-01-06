@@ -1,0 +1,86 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "df_bronze_openaq_locations",
+  "queryGroups": [],
+  "documentLocale": "pl-PL",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "d866a629-7007-4654-93c8-3fec83f67099",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "bronze_openaq_locations_raw": {
+      "queryId": "ddb014a3-c86d-4945-ab9e-fd065d083aaf",
+      "queryName": "bronze_openaq_locations_raw",
+      "loadEnabled": false
+    },
+    "bronze_ecb": {
+      "queryId": "a413ada6-b38b-412d-8029-08793e71058f",
+      "queryName": "bronze_ecb",
+      "loadEnabled": false
+    },
+    "bronze_nyc_taxi_locations": {
+      "queryId": "81c424c4-3c7c-4308-89a9-edb1b0c621e5",
+      "queryName": "bronze_nyc_taxi_locations",
+      "loadEnabled": false
+    },
+    "bronze_worldbank_raw": {
+      "queryId": "e2ba6ed7-96f5-4990-a06f-63972a3f6c85",
+      "queryName": "bronze_worldbank_raw",
+      "loadEnabled": false
+    },
+    "bronze_openaq_locations_raw_DataDestination": {
+      "queryId": "2d9e4a26-bd03-4ca7-b544-93a607c7c39e",
+      "queryName": "bronze_openaq_locations_raw_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "bronze_ecb_DataDestination": {
+      "queryId": "aab79f89-8746-42c0-942f-cff34353130d",
+      "queryName": "bronze_ecb_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "bronze_nyc_taxi_locations_DataDestination": {
+      "queryId": "63a7f70f-b5b8-4277-90fb-6b4ce32e38bc",
+      "queryName": "bronze_nyc_taxi_locations_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "bronze_worldbank_raw_DataDestination": {
+      "queryId": "3bf8f5a3-b9da-45a7-b4bb-bdfbda92bc61",
+      "queryName": "bronze_worldbank_raw_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"9410018a-c348-4aa5-8a78-4b3820557467\"}"
+    },
+    {
+      "path": "https://api.openaq.org/v3/locations?coordinates=40.7128,-74.0060&radius=50000&limit=100&page=1",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"393e5e56-8902-427f-abb6-3bdcffcb9d90\"}"
+    },
+    {
+      "path": "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?format=csvdata",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"1cf7c9a1-723d-4882-b6eb-ba94cbe02a57\"}"
+    },
+    {
+      "path": "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"272927ac-20ba-4fa4-9ae9-306985080d28\"}"
+    },
+    {
+      "path": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.CD?format=json",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"c3fc6d38-8755-4108-92ba-c1330bc67e28\"}"
+    }
+  ]
+}

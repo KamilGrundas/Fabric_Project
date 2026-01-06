@@ -1,0 +1,43 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "df_gold_zone",
+  "queryGroups": [],
+  "documentLocale": "pl-PL",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "fd4b3905-8fab-48a8-ac07-e3263a3ad537",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "bronze_nyc_taxi_locations": {
+      "queryId": "e43af02a-5425-4c81-8835-b6b766ee5493",
+      "queryName": "bronze_nyc_taxi_locations"
+    },
+    "silver_taxi_trips": {
+      "queryId": "74244c20-f056-4b5c-bc44-6af73175520c",
+      "queryName": "silver_taxi_trips"
+    },
+    "silver_openaq_locations": {
+      "queryId": "7672ed2c-2696-410c-a72c-43086941ddeb",
+      "queryName": "silver_openaq_locations"
+    },
+    "silver_sensors": {
+      "queryId": "0c1e2115-20ea-483a-9945-9bbe68bcefea",
+      "queryName": "silver_sensors"
+    }
+  },
+  "connections": [
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"1936b83b-0961-4606-b614-df75815289ef\"}"
+    },
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"9410018a-c348-4aa5-8a78-4b3820557467\"}"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+table DimBorough
+	lineageTag: 5cc97b05-da46-49b0-8fb5-1026c51b0942
+	sourceLineageTag: [dbo].[DimBorough]
+
+	column BoroughID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e22597f2-3375-4c5f-8655-16abef80ccd1
+		sourceLineageTag: BoroughID
+		summarizeBy: none
+		sourceColumn: BoroughID
+
+		annotation SummarizationSetBy = Automatic
+
+	column BoroughName
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 3662fe9d-1e7b-4f33-82ba-b81486c6ed03
+		sourceLineageTag: BoroughName
+		summarizeBy: none
+		sourceColumn: BoroughName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimBorough = entity
+		mode: directLake
+		source
+			entityName: DimBorough
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

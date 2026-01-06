@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_silver_transform_openaq-locations"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "880d986b-8e11-ad30-414b-70713684a621"
+  }
+}

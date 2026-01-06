@@ -1,0 +1,29 @@
+table 'Metrics 2'
+	lineageTag: b0caae77-f05f-4bd3-879f-1bc96910a92c
+
+	column Metric
+		lineageTag: 58cb34dd-cf2c-4ae5-b2fa-d2482afcaa0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Metrics 2' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "Metric", STRING,
+				    {
+				        { "Average Trip Distance" },
+				        { "Average Total Amount" },
+				        { "Average Tip Amount" },
+				        { "Average Trip Duration (Minutes)" }
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 00b73fa308064daf93600076be0b17ac
+

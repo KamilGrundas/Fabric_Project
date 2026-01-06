@@ -1,0 +1,16 @@
+relationship 6866cd3d-bc7a-b0e5-0e50-1fdf7700f56b
+	fromColumn: FactTaxiHourly.PUBoroughID
+	toColumn: DimBorough.BoroughID
+
+relationship 7a051871-7a48-ec33-2d0e-886b01ee09c2
+	fromColumn: FactTaxiHourly.PickupDateKey
+	toColumn: DimDate.DateKey
+
+relationship 811ebe08-3a66-39a2-edfb-00331e9e47af
+	fromColumn: FactAirQuality.BoroughID
+	toColumn: DimBorough.BoroughID
+
+relationship 0a83fc1b-22e4-f819-9df4-c716771913bb
+	fromColumn: FactAirQuality.DateKey
+	toColumn: DimDate.DateKey
+

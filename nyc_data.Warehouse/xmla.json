@@ -1,0 +1,1217 @@
+{
+  "name": "{{Dataset_Name}}",
+  "compatibilityLevel": 1604,
+  "model": {
+    "name": "{{Dataset_Name}}",
+    "culture": "en-US",
+    "collation": "Latin1_General_100_BIN2_UTF8",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "DimBorough",
+        "sourceLineageTag": "[dbo].[DimBorough]",
+        "columns": [
+          {
+            "name": "BoroughID",
+            "dataType": "int64",
+            "sourceColumn": "BoroughID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "BoroughID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "BoroughName",
+            "dataType": "string",
+            "sourceColumn": "BoroughName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "BoroughName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "DimBorough",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "sourceLineageTag": "[dbo].[DimDate]",
+        "columns": [
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DateKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DateValue",
+            "dataType": "dateTime",
+            "sourceColumn": "DateValue",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "DateValue",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "Year",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "Day",
+            "dataType": "int64",
+            "sourceColumn": "Day",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "Day",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "int64",
+            "sourceColumn": "DayOfWeek",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DayOfWeek",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "IsWeekend",
+            "dataType": "int64",
+            "sourceColumn": "IsWeekend",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "IsWeekend",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "MonthNumber",
+            "dataType": "int64",
+            "sourceColumn": "MonthNumber",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "MonthNumber",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "MonthShort",
+            "dataType": "string",
+            "sourceColumn": "MonthShort",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "MonthShort",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DayOfWeekShort",
+            "dataType": "string",
+            "sourceColumn": "DayOfWeekShort",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "DayOfWeekShort",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "DimDate",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "FactAirQuality",
+        "sourceLineageTag": "[dbo].[FactAirQuality]",
+        "columns": [
+          {
+            "name": "BoroughID",
+            "dataType": "int64",
+            "sourceColumn": "BoroughID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "BoroughID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DateKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "value",
+            "dataType": "double",
+            "sourceColumn": "value",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "value",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "parameter",
+            "dataType": "string",
+            "sourceColumn": "parameter",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "parameter",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "unit",
+            "dataType": "string",
+            "sourceColumn": "unit",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "unit",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "HourKey",
+            "dataType": "int64",
+            "sourceColumn": "HourKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "HourKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "FactAirQuality",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "FactTaxiHourly",
+        "sourceLineageTag": "[dbo].[FactTaxiHourly]",
+        "columns": [
+          {
+            "name": "PUBoroughID",
+            "dataType": "int64",
+            "sourceColumn": "PUBoroughID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PUBoroughID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DOBoroughID",
+            "dataType": "int64",
+            "sourceColumn": "DOBoroughID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DOBoroughID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "trip_distance",
+            "dataType": "double",
+            "sourceColumn": "trip_distance",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "trip_distance",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "fare_amount",
+            "dataType": "decimal",
+            "sourceColumn": "fare_amount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "fare_amount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "tip_amount",
+            "dataType": "decimal",
+            "sourceColumn": "tip_amount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "tip_amount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "total_amount",
+            "dataType": "decimal",
+            "sourceColumn": "total_amount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "total_amount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "pickup_datetime",
+            "dataType": "dateTime",
+            "sourceColumn": "pickup_datetime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "pickup_datetime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "dropoff_datetime",
+            "dataType": "dateTime",
+            "sourceColumn": "dropoff_datetime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "dropoff_datetime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "pickup_hour",
+            "dataType": "int64",
+            "sourceColumn": "pickup_hour",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "pickup_hour",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "trip_duration_minutes",
+            "dataType": "decimal",
+            "sourceColumn": "trip_duration_minutes",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "trip_duration_minutes",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PickupDateKey",
+            "dataType": "int64",
+            "sourceColumn": "PickupDateKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PickupDateKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DropoffDateKey",
+            "dataType": "int64",
+            "sourceColumn": "DropoffDateKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DropoffDateKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "FactTaxiHourly",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "bronze_nyc_taxi_locations",
+        "sourceLineageTag": "[dbo].[bronze_nyc_taxi_locations]",
+        "columns": [
+          {
+            "name": "LocationID",
+            "dataType": "int64",
+            "sourceColumn": "LocationID",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "LocationID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "Borough",
+            "dataType": "string",
+            "sourceColumn": "Borough",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "Borough",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "Zone",
+            "dataType": "string",
+            "sourceColumn": "Zone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "Zone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "service_zone",
+            "dataType": "string",
+            "sourceColumn": "service_zone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "service_zone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "bronze_nyc_taxi_locations",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "silver_openaq_locations",
+        "sourceLineageTag": "[dbo].[silver_openaq_locations]",
+        "columns": [
+          {
+            "name": "location_id",
+            "dataType": "int64",
+            "sourceColumn": "location_id",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "location_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "name",
+            "dataType": "string",
+            "sourceColumn": "name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "locality",
+            "dataType": "string",
+            "sourceColumn": "locality",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "locality",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_code",
+            "dataType": "string",
+            "sourceColumn": "country_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "latitude",
+            "dataType": "double",
+            "sourceColumn": "latitude",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "latitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "longitude",
+            "dataType": "double",
+            "sourceColumn": "longitude",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "longitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "timezone",
+            "dataType": "string",
+            "sourceColumn": "timezone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "timezone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "provider",
+            "dataType": "string",
+            "sourceColumn": "provider",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "provider",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "road",
+            "dataType": "string",
+            "sourceColumn": "road",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "road",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "neighbourhood",
+            "dataType": "string",
+            "sourceColumn": "neighbourhood",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "neighbourhood",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "suburb",
+            "dataType": "string",
+            "sourceColumn": "suburb",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "suburb",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "silver_openaq_locations",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "silver_sensor_measurements_hourly",
+        "sourceLineageTag": "[dbo].[silver_sensor_measurements_hourly]",
+        "columns": [
+          {
+            "name": "sensor_id",
+            "dataType": "int64",
+            "sourceColumn": "sensor_id",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "sensor_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "datetime_utc",
+            "dataType": "dateTime",
+            "sourceColumn": "datetime_utc",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "datetime_utc",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "datetime_local",
+            "dataType": "dateTime",
+            "sourceColumn": "datetime_local",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "datetime_local",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "value",
+            "dataType": "double",
+            "sourceColumn": "value",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "value",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "silver_sensor_measurements_hourly",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "silver_sensors",
+        "sourceLineageTag": "[dbo].[silver_sensors]",
+        "columns": [
+          {
+            "name": "sensor_id",
+            "dataType": "int64",
+            "sourceColumn": "sensor_id",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "sensor_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "location_id",
+            "dataType": "int64",
+            "sourceColumn": "location_id",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "location_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "parameter",
+            "dataType": "string",
+            "sourceColumn": "parameter",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "parameter",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "unit",
+            "dataType": "string",
+            "sourceColumn": "unit",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "unit",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "silver_sensors",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "silver_taxi_trips",
+        "sourceLineageTag": "[dbo].[silver_taxi_trips]",
+        "columns": [
+          {
+            "name": "pickup_datetime",
+            "dataType": "dateTime",
+            "sourceColumn": "pickup_datetime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "pickup_datetime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "dropoff_datetime",
+            "dataType": "dateTime",
+            "sourceColumn": "dropoff_datetime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "dropoff_datetime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PULocationID",
+            "dataType": "int64",
+            "sourceColumn": "PULocationID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PULocationID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DOLocationID",
+            "dataType": "int64",
+            "sourceColumn": "DOLocationID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DOLocationID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "passenger_count",
+            "dataType": "int64",
+            "sourceColumn": "passenger_count",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "passenger_count",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "trip_distance",
+            "dataType": "double",
+            "sourceColumn": "trip_distance",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "trip_distance",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "fare_amount",
+            "dataType": "double",
+            "sourceColumn": "fare_amount",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "fare_amount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "tip_amount",
+            "dataType": "double",
+            "sourceColumn": "tip_amount",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "tip_amount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "total_amount",
+            "dataType": "double",
+            "sourceColumn": "total_amount",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "total_amount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "payment_type",
+            "dataType": "int64",
+            "sourceColumn": "payment_type",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "payment_type",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "trip_duration_minutes",
+            "dataType": "double",
+            "sourceColumn": "trip_duration_minutes",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "trip_duration_minutes",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "taxi_type",
+            "dataType": "string",
+            "sourceColumn": "taxi_type",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "taxi_type",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "silver_taxi_trips",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DatabaseQuery",
+        "kind": "m",
+        "expression": "let\n    database = {{TDS_Endpoint}}\nin\n    database\n"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "SourceLineageTagType",
+        "value": "DatabaseFullyQualifiedName"
+      }
+    ]
+  }
+}

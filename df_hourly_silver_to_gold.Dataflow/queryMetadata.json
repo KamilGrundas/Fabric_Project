@@ -1,0 +1,31 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "df_hourly_silver_to_gold",
+  "queryGroups": [],
+  "documentLocale": "pl-PL",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "44effb12-049a-48c8-bc9d-f758a87252cf",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "silver_sensor_measurements_hourly": {
+      "queryId": "fa0e4855-2723-4152-ab86-6bf111c002ec",
+      "queryName": "silver_sensor_measurements_hourly"
+    }
+  },
+  "connections": [
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"1936b83b-0961-4606-b614-df75815289ef\"}"
+    },
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"cf958c66-bbf5-417d-968b-127eec9a23bb\",\"DatasourceId\":\"9410018a-c348-4aa5-8a78-4b3820557467\"}"
+    }
+  ]
+}

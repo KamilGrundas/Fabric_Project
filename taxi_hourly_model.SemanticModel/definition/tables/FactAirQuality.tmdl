@@ -1,0 +1,78 @@
+table FactAirQuality
+	lineageTag: 51807d02-f895-4548-92d7-1fbff256e344
+	sourceLineageTag: [dbo].[FactAirQuality]
+
+	column BoroughID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0ffe68a2-86db-486b-85c4-0e3ccd98de92
+		sourceLineageTag: BoroughID
+		summarizeBy: none
+		sourceColumn: BoroughID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1333d563-263b-4287-b433-72c950206627
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column HourKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3eb874d0-4dc6-40cd-9cb3-7724df2672ca
+		sourceLineageTag: HourKey
+		summarizeBy: count
+		sourceColumn: HourKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 5d8e6fa6-fedf-4354-81f7-529656908cf1
+		sourceLineageTag: value
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column parameter
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 04e65834-48fe-4f17-9409-bf0c551356b5
+		sourceLineageTag: parameter
+		summarizeBy: none
+		sourceColumn: parameter
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f36b8d72-bf12-43eb-9e21-8858cf2fe53b
+		sourceLineageTag: unit
+		summarizeBy: none
+		sourceColumn: unit
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactAirQuality = entity
+		mode: directLake
+		source
+			entityName: FactAirQuality
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

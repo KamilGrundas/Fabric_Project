@@ -1,0 +1,493 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "ForEach",
+        "typeProperties": {
+          "items": {
+            "value": "@pipeline().parameters.taxi_months_types",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "type": "IfCondition",
+              "typeProperties": {
+                "expression": {
+                  "value": "@activity('taxi_file_metadata').output.exists\n",
+                  "type": "Expression"
+                },
+                "ifTrueActivities": [],
+                "ifFalseActivities": [
+                  {
+                    "type": "Copy",
+                    "typeProperties": {
+                      "source": {
+                        "type": "BinarySource",
+                        "formatSettings": {
+                          "type": "BinaryReadSettings"
+                        },
+                        "storeSettings": {
+                          "type": "HttpReadSettings",
+                          "requestMethod": "GET"
+                        },
+                        "datasetSettings": {
+                          "type": "Binary",
+                          "typeProperties": {
+                            "location": {
+                              "type": "HttpServerLocation",
+                              "relativeUrl": {
+                                "value": "@{concat(item().color,'_tripdata_', item().month, '.parquet')}",
+                                "type": "Expression"
+                              }
+                            }
+                          },
+                          "externalReferences": {
+                            "connection": "9625265c-6204-4f92-a092-e8677ec930e0"
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                          "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                          "type": "Binary",
+                          "typeProperties": {
+                            "location": {
+                              "type": "LakehouseLocation"
+                            }
+                          },
+                          "linkedService": {
+                            "name": "nyc_lh_data",
+                            "properties": {
+                              "type": "Lakehouse",
+                              "typeProperties": {
+                                "artifactId": "8537897d-2170-8498-4453-a1625a8fce1b",
+                                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                                "rootFolder": "Files"
+                              },
+                              "annotations": []
+                            }
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "enableStaging": false
+                    },
+                    "policy": {
+                      "timeout": "0.12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureInput": false,
+                      "secureOutput": false
+                    },
+                    "name": "nyc_taxi_file_",
+                    "dependsOn": []
+                  }
+                ]
+              },
+              "name": "If Condition1_copy1",
+              "dependsOn": [
+                {
+                  "activity": "taxi_file_metadata",
+                  "dependencyConditions": [
+                    "Completed"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "GetMetadata",
+              "typeProperties": {
+                "datasetSettings": {
+                  "type": "Parquet",
+                  "typeProperties": {
+                    "location": {
+                      "type": "LakehouseLocation",
+                      "fileName": {
+                        "value": "@concat(item().color,'_tripdata_', item().month, '.parquet')",
+                        "type": "Expression"
+                      }
+                    },
+                    "compressionCodec": "snappy"
+                  },
+                  "schema": [],
+                  "connectionSettings": {
+                    "name": "nyc_lh_data",
+                    "properties": {
+                      "type": "Lakehouse",
+                      "typeProperties": {
+                        "artifactId": "8537897d-2170-8498-4453-a1625a8fce1b",
+                        "workspaceId": "00000000-0000-0000-0000-000000000000",
+                        "rootFolder": "Files"
+                      },
+                      "externalReferences": {
+                        "connection": "9410018a-c348-4aa5-8a78-4b3820557467"
+                      },
+                      "annotations": []
+                    }
+                  },
+                  "annotations": []
+                },
+                "fieldList": [
+                  "exists"
+                ],
+                "storeSettings": {
+                  "type": "LakehouseReadSettings",
+                  "enablePartitionDiscovery": false
+                },
+                "formatSettings": {
+                  "type": "ParquetReadSettings"
+                }
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "taxi_file_metadata",
+              "dependsOn": []
+            }
+          ]
+        },
+        "name": "download_files",
+        "dependsOn": []
+      },
+      {
+        "type": "ForEach",
+        "typeProperties": {
+          "items": {
+            "value": "@pipeline().parameters.taxi_months_types",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "type": "IfCondition",
+              "typeProperties": {
+                "expression": {
+                  "value": "@equals(item().color, 'yellow')",
+                  "type": "Expression"
+                },
+                "ifTrueActivities": [
+                  {
+                    "type": "Copy",
+                    "typeProperties": {
+                      "source": {
+                        "type": "ParquetSource",
+                        "storeSettings": {
+                          "type": "LakehouseReadSettings",
+                          "recursive": true,
+                          "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                          "type": "ParquetReadSettings"
+                        },
+                        "datasetSettings": {
+                          "type": "Parquet",
+                          "typeProperties": {
+                            "location": {
+                              "type": "LakehouseLocation",
+                              "fileName": {
+                                "value": "@concat(item().color,'_tripdata_', item().month, '.parquet')",
+                                "type": "Expression"
+                              }
+                            },
+                            "compressionCodec": "snappy"
+                          },
+                          "schema": [],
+                          "connectionSettings": {
+                            "name": "nyc_taxi",
+                            "properties": {
+                              "type": "Lakehouse",
+                              "typeProperties": {
+                                "artifactId": "f5ab1335-6f76-4c11-b8bf-40691650e9b2",
+                                "workspaceId": "378a3317-a99d-4eea-a9a8-d061cb17fc3f",
+                                "rootFolder": "Files"
+                              },
+                              "externalReferences": {
+                                "connection": "9410018a-c348-4aa5-8a78-4b3820557467"
+                              },
+                              "annotations": []
+                            }
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "sink": {
+                        "type": "LakehouseTableSink",
+                        "tableActionOption": "Append",
+                        "applyVOrder": true,
+                        "partitionOption": "None",
+                        "datasetSettings": {
+                          "type": "LakehouseTable",
+                          "typeProperties": {
+                            "schema": "",
+                            "table": "nyc_yellow_taxi_trips_raw"
+                          },
+                          "schema": [],
+                          "connectionSettings": {
+                            "name": "nyc_lh_data",
+                            "properties": {
+                              "type": "Lakehouse",
+                              "typeProperties": {
+                                "artifactId": "8537897d-2170-8498-4453-a1625a8fce1b",
+                                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                                "rootFolder": "Tables"
+                              },
+                              "externalReferences": {
+                                "connection": "9410018a-c348-4aa5-8a78-4b3820557467"
+                              },
+                              "annotations": []
+                            }
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                          "allowDataTruncation": true,
+                          "treatBooleanAsNumber": false
+                        }
+                      },
+                      "enableStaging": false
+                    },
+                    "policy": {
+                      "timeout": "0.12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureInput": false,
+                      "secureOutput": false
+                    },
+                    "name": "insert_data_from_file",
+                    "dependsOn": []
+                  }
+                ],
+                "ifFalseActivities": [
+                  {
+                    "type": "Copy",
+                    "typeProperties": {
+                      "source": {
+                        "type": "ParquetSource",
+                        "storeSettings": {
+                          "type": "LakehouseReadSettings",
+                          "recursive": true,
+                          "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                          "type": "ParquetReadSettings"
+                        },
+                        "datasetSettings": {
+                          "type": "Parquet",
+                          "typeProperties": {
+                            "location": {
+                              "type": "LakehouseLocation",
+                              "fileName": {
+                                "value": "@concat(item().color,'_tripdata_', item().month, '.parquet')",
+                                "type": "Expression"
+                              }
+                            },
+                            "compressionCodec": "snappy"
+                          },
+                          "schema": [],
+                          "connectionSettings": {
+                            "name": "nyc_taxi",
+                            "properties": {
+                              "type": "Lakehouse",
+                              "typeProperties": {
+                                "artifactId": "f5ab1335-6f76-4c11-b8bf-40691650e9b2",
+                                "workspaceId": "378a3317-a99d-4eea-a9a8-d061cb17fc3f",
+                                "rootFolder": "Files"
+                              },
+                              "externalReferences": {
+                                "connection": "9410018a-c348-4aa5-8a78-4b3820557467"
+                              },
+                              "annotations": []
+                            }
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "sink": {
+                        "type": "LakehouseTableSink",
+                        "tableActionOption": "Append",
+                        "applyVOrder": true,
+                        "partitionOption": "None",
+                        "datasetSettings": {
+                          "type": "LakehouseTable",
+                          "typeProperties": {
+                            "schema": "",
+                            "table": "nyc_green_taxi_trips_raw"
+                          },
+                          "schema": [],
+                          "connectionSettings": {
+                            "name": "nyc_lh_data",
+                            "properties": {
+                              "type": "Lakehouse",
+                              "typeProperties": {
+                                "artifactId": "8537897d-2170-8498-4453-a1625a8fce1b",
+                                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                                "rootFolder": "Tables"
+                              },
+                              "externalReferences": {
+                                "connection": "9410018a-c348-4aa5-8a78-4b3820557467"
+                              },
+                              "annotations": []
+                            }
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                          "allowDataTruncation": true,
+                          "treatBooleanAsNumber": false
+                        }
+                      },
+                      "enableStaging": false
+                    },
+                    "policy": {
+                      "timeout": "0.12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureInput": false,
+                      "secureOutput": false
+                    },
+                    "name": "insert_data_from_file_green",
+                    "dependsOn": []
+                  }
+                ]
+              },
+              "name": "If Condition1",
+              "dependsOn": []
+            }
+          ]
+        },
+        "name": "insert_data_to_table",
+        "dependsOn": [
+          {
+            "activity": "download_files",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "taxi_months_types": {
+        "type": "array",
+        "defaultValue": [
+          {
+            "month": "2024-01",
+            "color": "green"
+          },
+          {
+            "month": "2024-01",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-02",
+            "color": "green"
+          },
+          {
+            "month": "2024-02",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-03",
+            "color": "green"
+          },
+          {
+            "month": "2024-03",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-04",
+            "color": "green"
+          },
+          {
+            "month": "2024-04",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-05",
+            "color": "green"
+          },
+          {
+            "month": "2024-05",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-06",
+            "color": "green"
+          },
+          {
+            "month": "2024-06",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-07",
+            "color": "green"
+          },
+          {
+            "month": "2024-07",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-08",
+            "color": "green"
+          },
+          {
+            "month": "2024-08",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-09",
+            "color": "green"
+          },
+          {
+            "month": "2024-09",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-10",
+            "color": "green"
+          },
+          {
+            "month": "2024-10",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-11",
+            "color": "green"
+          },
+          {
+            "month": "2024-11",
+            "color": "yellow"
+          },
+          {
+            "month": "2024-12",
+            "color": "green"
+          },
+          {
+            "month": "2024-12",
+            "color": "yellow"
+          }
+        ]
+      }
+    },
+    "variables": {
+      "color": {
+        "type": "String"
+      }
+    }
+  }
+}
