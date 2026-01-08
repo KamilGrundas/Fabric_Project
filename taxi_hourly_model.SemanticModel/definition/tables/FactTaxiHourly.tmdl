@@ -151,6 +151,15 @@ table FactTaxiHourly
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Dashboard Title' = ```
+			
+			"NYC Taxi Trips Summary – Year " & SELECTEDVALUE ( DimDate[Year] )
+			
+			```
+		lineageTag: 59d1a0e5-7324-4d62-aca2-9c421861e3e8
+
+		changedProperty = Name
+
 	column pickup_datetime
 		dataType: dateTime
 		formatString: General Date
