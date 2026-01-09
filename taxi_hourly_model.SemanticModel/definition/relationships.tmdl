@@ -14,3 +14,11 @@ relationship 0a83fc1b-22e4-f819-9df4-c716771913bb
 	fromColumn: FactAirQuality.DateKey
 	toColumn: DimDate.DateKey
 
+relationship 28ec7103-a8a9-0861-ef15-7aa311872405
+	fromColumn: FactAirQuality.HourKey
+	toColumn: HourKey.Value
+
+relationship 621baf91-688b-bc0b-a623-34d71ad084c5
+	fromColumn: FactTaxiHourly.pickup_hour
+	toColumn: HourKey.Value
+

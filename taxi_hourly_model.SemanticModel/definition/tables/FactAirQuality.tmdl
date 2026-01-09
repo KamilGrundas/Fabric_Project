@@ -30,7 +30,7 @@ table FactAirQuality
 		sourceProviderType: int
 		lineageTag: 3eb874d0-4dc6-40cd-9cb3-7724df2672ca
 		sourceLineageTag: HourKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: HourKey
 
 		annotation SummarizationSetBy = Automatic

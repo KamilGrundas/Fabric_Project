@@ -19,4 +19,5 @@ ref table Metrics
 ref table DimDate
 ref table FactAirQuality
 ref table 'Metrics 2'
+ref table HourKey
 

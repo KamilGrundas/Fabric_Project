@@ -1,0 +1,20 @@
+table HourKey
+	lineageTag: 85c69987-0e7d-4e90-a766-9c309bfdf66e
+
+	column Value
+		formatString: 0
+		lineageTag: 205c3aa7-560e-49d9-943d-30cec778b5ca
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition HourKey = calculated
+		mode: import
+		source =
+				
+				GENERATESERIES(0, 23, 1)
+
+	annotation PBI_Id = ce04f8599bb748ceaf4dfb079312273d
+

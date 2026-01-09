@@ -188,7 +188,7 @@ table FactTaxiHourly
 		sourceProviderType: int
 		lineageTag: a6a6508c-b1e9-4323-85ef-5d1996f5a8a8
 		sourceLineageTag: pickup_hour
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: pickup_hour
 
 		annotation SummarizationSetBy = Automatic
